@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.cars
     model           character varying(256) NOT NULL,
     production_year int                    NOT NULL,
     serial_number   character varying(256) NOT NULL,
-    owner_id        bigint                 NOT NULL,
+    order_id        bigint                 NOT NULL,
     CONSTRAINT cars_pk PRIMARY KEY (id)
 );
 

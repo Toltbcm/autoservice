@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS public.parts
 (
     id    bigint                 NOT NULL,
     title character varying(256) NOT NULL,
-    price character varying(256) NOT NULL,
+    price numeric(19, 2)         NOT NULL,
     CONSTRAINT parts_pk PRIMARY KEY (id)
 );
 

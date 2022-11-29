@@ -7,3 +7,7 @@ databaseChangeLog:
       file: /db/changelog/changes/create-cars-seq.sql
   - include:
       file: /db/changelog/changes/create-cars-table.sql
+  - include:
+      file: /db/changelog/changes/create-masters-seq.sql
+  - include:
+      file: /db/changelog/changes/create-masters-table.sql
