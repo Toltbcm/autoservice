@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/changes/create-parts-seq.sql
+  - include:
+      file: /db/changelog/changes/create-parts-table.sql
+  - include:
+      file: /db/changelog/changes/create-cars-seq.sql
+  - include:
+      file: /db/changelog/changes/create-cars-table.sql
