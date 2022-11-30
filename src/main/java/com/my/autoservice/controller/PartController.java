@@ -35,7 +35,7 @@ public class PartController {
     }
 
     @PutMapping("/{id}")
-    public PartResponseDto addPart(@PathVariable Long id,
+    public PartResponseDto updatePart(@PathVariable Long id,
             @RequestBody PartRequestDto partRequestDto) {
         Part part = requestDtoMapper.mapToModel(partRequestDto);
         part.setId(id);
