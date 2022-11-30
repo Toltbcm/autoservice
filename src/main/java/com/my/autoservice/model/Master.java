@@ -5,7 +5,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "masters")
 public class Master {
     @Id
@@ -27,6 +28,7 @@ public class Master {
     private String firstName;
     private String lastName;
     private String patronymic;
-    @OneToMany
+    @ManyToMany
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "order_id"))
     private List<Order> completedOrders;
 }

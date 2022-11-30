@@ -2,11 +2,11 @@
 --changeSet <postgres>:<create-masters-table>
 CREATE TABLE IF NOT EXISTS public.masters
 (
-    id         bigint                 NOT NULL,
-    first_name character varying(256) NOT NULL,
-    last_name  character varying(256) NOT NULL,
-    patronymic character varying(256) NOT NULL,
---     order_id   bigint                 NOT NULL,
+    id         BIGINT                 NOT NULL,
+    first_name CHARACTER VARYING(256) NOT NULL,
+    last_name  CHARACTER VARYING(256) NOT NULL,
+    patronymic CHARACTER VARYING(256) NOT NULL,
+    order_id   BIGINT                 NOT NULL,
     CONSTRAINT masters_pk PRIMARY KEY (id)
 );
 

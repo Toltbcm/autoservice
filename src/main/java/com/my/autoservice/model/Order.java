@@ -4,8 +4,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,20 +24,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "orders")
 public class Order {
     @Id
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     private Car car;
     private String problemDescription;
     private LocalDateTime startTime;
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     private List<Service> services;
-    @OneToMany
+    @ManyToMany
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "part_id"))
     private List<Part> parts;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
     private BigDecimal totalPrice;
     private LocalDateTime finishTime;

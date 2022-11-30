@@ -2,7 +2,11 @@ package com.my.autoservice.model;
 
 import java.math.BigDecimal;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,15 +19,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "services")
 public class Service {
     @Id
     Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Master master;
-    private BigDecimal servicePrice;
+    private BigDecimal price;
+    @Enumerated(EnumType.STRING)
     PaymentStatus paymentStatus;
 }

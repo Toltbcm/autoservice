@@ -11,3 +11,7 @@ databaseChangeLog:
       file: /db/changelog/changes/create-masters-seq.sql
   - include:
       file: /db/changelog/changes/create-masters-table.sql
+  - include:
+      file: /db/changelog/changes/create-owners-seq.sql
+  - include:
+      file: /db/changelog/changes/create-owners-table.sql
