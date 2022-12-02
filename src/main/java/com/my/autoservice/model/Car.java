@@ -19,9 +19,8 @@ import lombok.Setter;
 @Table(name = "cars")
 public class Car {
     @Id
-//    @GeneratedValue(generator = "cars_id_seq", strategy = GenerationType.SEQUENCE)
-//    @SequenceGenerator(name = "cars_id_seq", sequenceName = "cars_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "cars_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "cars_id_seq", sequenceName = "cars_id_seq", allocationSize = 1)
     private Long id;
     private String manufacturer;
     private String model;

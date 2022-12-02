@@ -2,7 +2,6 @@ package com.my.autoservice.controller;
 
 import com.my.autoservice.dto.mapper.OrderMapper;
 import com.my.autoservice.dto.mapper.OwnerMapper;
-import com.my.autoservice.dto.request.OwnerCreateDto;
 import com.my.autoservice.dto.request.OwnerRequestDto;
 import com.my.autoservice.dto.response.OwnerResponseDto;
 import com.my.autoservice.model.Owner;
@@ -45,7 +44,11 @@ public class OwnerController {
     @PutMapping("/update//{id}")
     public OwnerResponseDto update(@PathVariable Long id,
             @RequestBody OwnerRequestDto ownerRequestDto) {
-        Owner owner = ownerService.getById(id);
+        Owner ownerFromDb = ownerService.getById(id);
+        Owner owner =ownerMapper.mapToModel(ownerRequestDto);
+        owner.setId(id);
+        owner.setCars(ownerFromDb.getCars());
+        owner.setOrders(ownerFromDb.getOrders());
         return ownerMapper.mapToDto(ownerService.save(owner));
     }
 }

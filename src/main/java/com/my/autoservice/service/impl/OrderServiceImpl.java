@@ -3,7 +3,6 @@ package com.my.autoservice.service.impl;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.repository.OrderRepository;
 import com.my.autoservice.service.OrderService;
-import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
