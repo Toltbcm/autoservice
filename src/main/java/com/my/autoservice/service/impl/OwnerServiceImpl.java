@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OwnerServiceImpl implements OwnerService {
-    OwnerRepository ownerRepository;
+    private final OwnerRepository ownerRepository;
 
     public OwnerServiceImpl(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;

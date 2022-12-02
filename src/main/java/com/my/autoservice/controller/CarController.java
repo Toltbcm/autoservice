@@ -40,7 +40,8 @@ public class CarController {
     }
 
     @PutMapping("/update//{id}")
-    public CarResponseDto updateCar(@PathVariable Long id, @RequestBody CarRequestDto carRequestDto) {
+    public CarResponseDto updateCar(@PathVariable Long id,
+            @RequestBody CarRequestDto carRequestDto) {
         Car car = requestDtoMapper.mapToModel(carRequestDto);
         car.setId(id);
         return responseDtoMapper.mapToDto(carService.save(car));

@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OwnerResponseDto {
-    Long id;
-    String licenseNumber;
-    List<Long> carIds;
-    List<Long> orderIds;
+    private Long id;
+    private String licenseNumber;
+    private List<Long> carIds;
+    private List<Long> orderIds;
 }

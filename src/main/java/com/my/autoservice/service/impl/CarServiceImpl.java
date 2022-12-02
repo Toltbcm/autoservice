@@ -3,7 +3,6 @@ package com.my.autoservice.service.impl;
 import com.my.autoservice.model.Car;
 import com.my.autoservice.repository.CarRepository;
 import com.my.autoservice.service.CarService;
-import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service

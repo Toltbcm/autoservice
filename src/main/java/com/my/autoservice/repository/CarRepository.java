@@ -1,7 +1,6 @@
 package com.my.autoservice.repository;
 
 import com.my.autoservice.model.Car;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

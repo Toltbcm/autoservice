@@ -1,11 +1,10 @@
 package com.my.autoservice.controller;
 
-import com.my.autoservice.dto.mapper.OrderMapper;
-import com.my.autoservice.dto.mapper.OwnerMapper;
+import com.my.autoservice.dto.mapper.RequestDtoMapper;
+import com.my.autoservice.dto.mapper.ResponseDtoMapper;
 import com.my.autoservice.dto.request.OwnerRequestDto;
 import com.my.autoservice.dto.response.OwnerResponseDto;
 import com.my.autoservice.model.Owner;
-import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.OwnerService;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,36 +18,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/owner")
 public class OwnerController {
     private final OwnerService ownerService;
-    private final OwnerMapper ownerMapper;
-    private final OrderService orderService;
-    private final OrderMapper orderMapper;
+    private final RequestDtoMapper<OwnerRequestDto, Owner> requestDtoMapper;
+    private final ResponseDtoMapper<OwnerResponseDto, Owner> responseDtoMapper;
 
     public OwnerController(OwnerService ownerService,
-            OwnerMapper ownerMapper,
-            OrderService orderService,
-            OrderMapper orderMapper) {
+            RequestDtoMapper<OwnerRequestDto, Owner> requestDtoMapper,
+            ResponseDtoMapper<OwnerResponseDto, Owner> responseDtoMapper) {
         this.ownerService = ownerService;
-        this.ownerMapper = ownerMapper;
-        this.orderService = orderService;
-        this.orderMapper = orderMapper;
+        this.requestDtoMapper = requestDtoMapper;
+        this.responseDtoMapper = responseDtoMapper;
     }
 
     @PostMapping("/add")
     public OwnerResponseDto create(@RequestBody OwnerRequestDto ownerRequestDto) {
-        Owner owner = ownerMapper.mapToModel(ownerRequestDto);
+        Owner owner = requestDtoMapper.mapToModel(ownerRequestDto);
         owner.setCars(new ArrayList<>());
         owner.setOrders(new ArrayList<>());
-        return ownerMapper.mapToDto(ownerService.save(owner));
+        return responseDtoMapper.mapToDto(ownerService.save(owner));
     }
 
     @PutMapping("/update//{id}")
     public OwnerResponseDto update(@PathVariable Long id,
             @RequestBody OwnerRequestDto ownerRequestDto) {
         Owner ownerFromDb = ownerService.getById(id);
-        Owner owner =ownerMapper.mapToModel(ownerRequestDto);
+        Owner owner = requestDtoMapper.mapToModel(ownerRequestDto);
         owner.setId(id);
         owner.setCars(ownerFromDb.getCars());
         owner.setOrders(ownerFromDb.getOrders());
-        return ownerMapper.mapToDto(ownerService.save(owner));
+        return responseDtoMapper.mapToDto(ownerService.save(owner));
     }
 }

@@ -25,8 +25,9 @@ import lombok.Setter;
 public class Service {
     @Id
     @GeneratedValue(generator = "services_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "services_id_seq", sequenceName = "services_id_seq", allocationSize = 1)
-    Long id;
+    @SequenceGenerator(name = "services_id_seq",
+            sequenceName = "services_id_seq", allocationSize = 1)
+    private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     private Order order;
@@ -34,5 +35,5 @@ public class Service {
     private Master master;
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
-    PaymentStatus paymentStatus;
+    private PaymentStatus paymentStatus;
 }
