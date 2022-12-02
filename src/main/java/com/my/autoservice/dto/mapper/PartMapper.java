@@ -17,11 +17,11 @@ public class PartMapper implements RequestDtoMapper<PartRequestDto, Part>,
     }
 
     @Override
-    public PartResponseDto mapToDto(Part model) {
-        PartResponseDto partResponseDto = new PartResponseDto();
-        partResponseDto.setId(model.getId());
-        partResponseDto.setTitle(model.getTitle());
-        partResponseDto.setPrice(model.getPrice());
-        return partResponseDto;
+    public PartResponseDto mapToDto(Part part) {
+        PartResponseDto dto = new PartResponseDto();
+        dto.setId(part.getId());
+        dto.setTitle(part.getTitle());
+        dto.setPrice(part.getPrice());
+        return dto;
     }
 }

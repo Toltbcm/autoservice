@@ -28,17 +28,17 @@ public class PartController {
         this.responseDtoMapper = responseDtoMapper;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public PartResponseDto addPart(@RequestBody PartRequestDto partRequestDto) {
-        return responseDtoMapper.mapToDto(
-                partService.add(requestDtoMapper.mapToModel(partRequestDto)));
+        Part part = requestDtoMapper.mapToModel(partRequestDto);
+        return responseDtoMapper.mapToDto(partService.save(part));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update//{id}")
     public PartResponseDto updatePart(@PathVariable Long id,
             @RequestBody PartRequestDto partRequestDto) {
         Part part = requestDtoMapper.mapToModel(partRequestDto);
         part.setId(id);
-        return responseDtoMapper.mapToDto(partService.add(part));
+        return responseDtoMapper.mapToDto(partService.save(part));
     }
 }

@@ -10,7 +10,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +28,6 @@ public class Master {
     private String lastName;
     private String patronymic;
     @ManyToMany
-    @JoinTable(inverseJoinColumns = @JoinColumn(name = "order_id"))
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "master_id"))
     private List<Order> completedOrders;
 }
