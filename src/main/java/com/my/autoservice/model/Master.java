@@ -28,6 +28,6 @@ public class Master {
     private String lastName;
     private String patronymic;
     @ManyToMany
-    @JoinTable(inverseJoinColumns = @JoinColumn(name = "master_id"))
+    @JoinTable(inverseJoinColumns = @JoinColumn(name = "order_id"))
     private List<Order> completedOrders;
 }

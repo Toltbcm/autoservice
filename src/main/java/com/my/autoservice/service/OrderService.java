@@ -7,7 +7,4 @@ public interface OrderService {
     Order save(Order order);
 
     Order getById(Long id);
-
-    List<Order> getAllByMasterId(Long id);
-//    List<Order> getAllByOwnerId(Long id);
 }

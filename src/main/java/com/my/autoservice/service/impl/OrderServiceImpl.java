@@ -24,14 +24,4 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Can't find order by Id: " + id));
     }
-
-    @Override
-    public List<Order> getAllByMasterId(Long id) {
-        return null;
-//        return orderRepository.getAllByMasterId(id);
-    }
-//    @Override
-//    public List<Order> getAllByOwnerId(Long id) {
-//        return orderRepository.findAllByOwnerId(id);
-//    }
 }

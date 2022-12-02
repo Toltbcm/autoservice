@@ -8,6 +8,7 @@ import com.my.autoservice.dto.response.OwnerResponseDto;
 import com.my.autoservice.model.Owner;
 import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.OwnerService;
+import java.util.ArrayList;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -34,22 +35,17 @@ public class OwnerController {
     }
 
     @PostMapping("/add")
-    public OwnerResponseDto create(@RequestBody OwnerCreateDto ownerCreateDto) {
-        return ownerMapper.mapToDto(ownerService.create(ownerCreateDto));
+    public OwnerResponseDto create(@RequestBody OwnerRequestDto ownerRequestDto) {
+        Owner owner = ownerMapper.mapToModel(ownerRequestDto);
+        owner.setCars(new ArrayList<>());
+        owner.setOrders(new ArrayList<>());
+        return ownerMapper.mapToDto(ownerService.save(owner));
     }
 
     @PutMapping("/update//{id}")
     public OwnerResponseDto update(@PathVariable Long id,
             @RequestBody OwnerRequestDto ownerRequestDto) {
-        Owner owner = ownerMapper.mapToModel(ownerRequestDto);
-        owner.setId(id);
+        Owner owner = ownerService.getById(id);
         return ownerMapper.mapToDto(ownerService.save(owner));
     }
-
-//    @GetMapping("/order//{id}")
-//    public List<OrderResponseDto> getOrders(@PathVariable Long id) {
-//        return orderService.getAllByOwnerId(id).stream()
-//                .map(orderMapper::mapToDto)
-//                .collect(Collectors.toList());
-//    }
 }

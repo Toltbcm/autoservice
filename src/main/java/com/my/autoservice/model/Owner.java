@@ -22,10 +22,11 @@ public class Owner {
 //    @GeneratedValue(generator = "owners_id_seq", strategy = GenerationType.SEQUENCE)
 //    @SequenceGenerator(name = "owners_id_seq", sequenceName = "owners_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
+    private String licenseNumber;
     @OneToMany(mappedBy = "owner")
-    List<Car> cars;
+    private List<Car> cars;
     @OneToMany
     @JoinColumn(name = "owner_id")
-    List<Order> orders;
+    private List<Order> orders;
 }
