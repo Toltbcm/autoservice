@@ -1,10 +1,9 @@
 --liquibase formatted sql
---changeSet <postgres>:<create-parts-table>
-CREATE TABLE IF NOT EXISTS public.parts
+--changeSet <postgres>:<create-owners-table>
+CREATE TABLE IF NOT EXISTS public.owners
 (
-    id            bigint primary key     NOT NULL,
-    car           character varying(256) NOT NULL,
-    service_order numeric(19, 2)    references orders(id)    NOT NULL
+    id BIGINT NOT NULL,
+    CONSTRAINT owners_id PRIMARY KEY (id)
 );
 
 --rollback DROP TABLE parts;

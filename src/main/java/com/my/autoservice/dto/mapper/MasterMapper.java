@@ -2,8 +2,8 @@ package com.my.autoservice.dto.mapper;
 
 import com.my.autoservice.dto.request.MasterRequestDto;
 import com.my.autoservice.dto.response.MasterResponseDto;
-import com.my.autoservice.model.CompletedOrder;
 import com.my.autoservice.model.Master;
+import com.my.autoservice.model.Order;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
@@ -27,8 +27,8 @@ public class MasterMapper implements RequestDtoMapper<MasterRequestDto, Master>,
         masterResponseDto.setFirstName(master.getFirstName());
         masterResponseDto.setLastName(master.getLastName());
         masterResponseDto.setPatronymic(master.getPatronymic());
-        masterResponseDto.setOrderIds(master.getCompletedOrders().stream()
-                .map(CompletedOrder::getId)
+        masterResponseDto.setOrderIds(master.getOrders().stream()
+                .map(Order::getId)
                 .collect(Collectors.toList()));
         return masterResponseDto;
     }

@@ -15,3 +15,15 @@ databaseChangeLog:
       file: /db/changelog/changes/create-owners-seq.sql
   - include:
       file: /db/changelog/changes/create-owners-table.sql
+  - include:
+      file: /db/changelog/changes/create-orders-seq.sql
+  - include:
+      file: /db/changelog/changes/create-orders-table.sql
+  - include:
+      file: /db/changelog/changes/create-service-seq.sql
+  - include:
+      file: /db/changelog/changes/create-service-table.sql
+  - include:
+      file: /db/changelog/changes/create-masters-orders-seq.sql
+  - include:
+      file: /db/changelog/changes/create-masters-orders-table.sql

@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS public.masters
     first_name CHARACTER VARYING(256) NOT NULL,
     last_name  CHARACTER VARYING(256) NOT NULL,
     patronymic CHARACTER VARYING(256) NOT NULL,
-    order_id   BIGINT                 NOT NULL,
     CONSTRAINT masters_pk PRIMARY KEY (id)
 );
 

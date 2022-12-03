@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,15 +21,15 @@ import lombok.Setter;
 @Table(name = "masters")
 public class Master {
     @Id
-//    @GeneratedValue(generator = "masters_id_seq", strategy = GenerationType.SEQUENCE)
-//    @SequenceGenerator(name = "masters_id_seq", sequenceName = "masters_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "masters_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "masters_id_seq", sequenceName = "masters_id_seq", allocationSize = 1)
     private Long id;
     private String firstName;
     private String lastName;
     private String patronymic;
-    @ManyToMany@JoinTable(name = "masters_completed_orders",
+    @ManyToMany
+    @JoinTable(name = "masters_orders",
             joinColumns = @JoinColumn(name = "master_id"),
-            inverseJoinColumns = @JoinColumn(name = "completed_order_id"))
-    private List<CompletedOrder> completedOrders;
+            inverseJoinColumns = @JoinColumn(name = "order_id"))
+    private List<Order> orders;
 }

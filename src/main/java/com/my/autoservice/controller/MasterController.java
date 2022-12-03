@@ -32,7 +32,7 @@ public class MasterController {
     @PostMapping("/add")
     public MasterResponseDto create(@RequestBody MasterRequestDto masterRequestDto) {
         Master master = requestDtoMapper.mapToModel(masterRequestDto);
-        master.setCompletedOrders(new ArrayList<>());
+        master.setOrders(new ArrayList<>());
         return responseDtoMapper.mapToDto(masterService.save(master));
     }
 
@@ -42,7 +42,7 @@ public class MasterController {
         Master masterFromDb = masterService.getById(id);
         Master master = requestDtoMapper.mapToModel(masterRequestDto);
         master.setId(id);
-        master.setCompletedOrders(masterFromDb.getCompletedOrders());
+        master.setOrders(masterFromDb.getOrders());
         return responseDtoMapper.mapToDto(masterService.save(master));
     }
 }

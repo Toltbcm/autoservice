@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,9 +29,8 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order {
     @Id
-//    @GeneratedValue(generator = "orders_id_seq", strategy = GenerationType.SEQUENCE)
-//    @SequenceGenerator(name = "orders_id_seq", sequenceName = "orders_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "orders_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "orders_id_seq", sequenceName = "orders_id_seq", allocationSize = 1)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
@@ -42,8 +42,8 @@ public class Order {
     private List<Service> services;
     @ManyToMany
     @JoinTable(name = "orders_parts",
-    joinColumns = @JoinColumn(name = "order_id"),
-    inverseJoinColumns = @JoinColumn(name = "part_id"))
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "part_id"))
     private List<Part> parts;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
