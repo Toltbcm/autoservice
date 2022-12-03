@@ -5,14 +5,9 @@ import com.my.autoservice.dto.mapper.ResponseDtoMapper;
 import com.my.autoservice.dto.request.OrderRequestDto;
 import com.my.autoservice.dto.response.OrderResponseDto;
 import com.my.autoservice.model.Order;
-import com.my.autoservice.model.OrderStatus;
 import com.my.autoservice.service.CarService;
 import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.PartService;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +24,8 @@ public class OrderController {
     private final ResponseDtoMapper<OrderResponseDto, Order> responseDtoMapper;
 
     public OrderController(OrderService orderService,
-            PartService partService, CarService carService, RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper,
+            PartService partService, CarService carService,
+            RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper,
             ResponseDtoMapper<OrderResponseDto, Order> responseDtoMapper) {
         this.orderService = orderService;
         this.partService = partService;
@@ -38,11 +34,11 @@ public class OrderController {
         this.responseDtoMapper = responseDtoMapper;
     }
 
-    @PostMapping("/add//{carId}")
-    public OrderResponseDto create(@PathVariable Long carId,
+    @PostMapping("/add/car//{id}")
+    public OrderResponseDto create(@PathVariable Long id,
             @RequestBody OrderRequestDto orderRequestDto) {
         Order order = requestDtoMapper.mapToModel(orderRequestDto);
-        return responseDtoMapper.mapToDto(orderService.create(carId, order));
+        return responseDtoMapper.mapToDto(orderService.create(id, order));
     }
 
     @PostMapping("/add//{orderId}/part//{partId}")
@@ -50,9 +46,4 @@ public class OrderController {
         return responseDtoMapper.mapToDto(
                 orderService.addPart(orderId, partService.getById(partId)));
     }
-
-//    @PutMapping("/update//{id}")
-//    public OrderResponseDto update(@PathVariable Long id, @RequestBody OrderRequestDto) {
-//        return null;
-//    }
 }

@@ -29,7 +29,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order create(Long carId, Order order) {
-        Long owner_id = ownerService.getByCarId(carId).getId();
         order.setCar(carService.getById(carId));
         order.setServices(new ArrayList<>());
         order.setParts(new ArrayList<>());
@@ -39,7 +38,8 @@ public class OrderServiceImpl implements OrderService {
                 1, 0, 0, 0, 0));
         order.setTotalPrice(BigDecimal.ZERO);
         order = orderRepository.save(order);
-        ownerService.addOrder(owner_id, order);
+        Long ownerId = ownerService.getByCarId(carId).getId();
+        ownerService.addOrder(ownerId, order);
         return order;
     }
 
@@ -54,7 +54,6 @@ public class OrderServiceImpl implements OrderService {
                 () -> new RuntimeException("Can't find order by ID: " + id));
     }
 
-    @Override
     public Order addService(Long id, com.my.autoservice.service.Service service) {
         return null;
     }
@@ -65,6 +64,6 @@ public class OrderServiceImpl implements OrderService {
         List<Part> parts = order.getParts();
         parts.add(part);
         order.setParts(parts);
-        return orderRepository.save(order);
+        return save(order);
     }
 }

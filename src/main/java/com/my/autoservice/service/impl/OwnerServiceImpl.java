@@ -35,7 +35,7 @@ public class OwnerServiceImpl implements OwnerService {
         List<Car> cars = owner.getCars();
         cars.add(car);
         owner.setCars(cars);
-        return ownerRepository.save(owner);
+        return save(owner);
     }
 
     @Override
@@ -44,7 +44,7 @@ public class OwnerServiceImpl implements OwnerService {
         List<Order> orders = owner.getOrders();
         orders.add(order);
         owner.setOrders(orders);
-        return ownerRepository.save(owner);
+        return save(owner);
     }
 
     @Override

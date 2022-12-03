@@ -6,7 +6,6 @@ import com.my.autoservice.dto.request.MasterRequestDto;
 import com.my.autoservice.dto.response.MasterResponseDto;
 import com.my.autoservice.model.Master;
 import com.my.autoservice.service.MasterService;
-import java.util.ArrayList;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,8 +31,7 @@ public class MasterController {
     @PostMapping("/add")
     public MasterResponseDto create(@RequestBody MasterRequestDto masterRequestDto) {
         Master master = requestDtoMapper.mapToModel(masterRequestDto);
-        master.setOrders(new ArrayList<>());
-        return responseDtoMapper.mapToDto(masterService.save(master));
+        return responseDtoMapper.mapToDto(masterService.create(master));
     }
 
     @PutMapping("/update//{id}")

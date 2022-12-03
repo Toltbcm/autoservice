@@ -4,8 +4,8 @@ CREATE TABLE IF NOT EXISTS public.orders
 (
     id                  BIGINT                 NOT NULL,
     car_id              BIGINT                 NOT NULL,
-    start_time          DATE                   NOT NULL,
-    finish_time         DATE                   NOT NULL,
+    start_time          TIMESTAMP              NOT NULL,
+    finish_time         TIMESTAMP              NOT NULL,
     problem_description CHARACTER VARYING(256) NOT NULL,
     status              CHARACTER VARYING(32)  NOT NULL,
     total_price         NUMERIC(19, 2)         NOT NULL,

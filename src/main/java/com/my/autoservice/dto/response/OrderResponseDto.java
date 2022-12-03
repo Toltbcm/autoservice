@@ -1,6 +1,5 @@
 package com.my.autoservice.dto.response;
 
-import com.my.autoservice.model.Car;
 import com.my.autoservice.model.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class OrderResponseDto {
     private Long id;
-    private Long car_id;
+    private Long carId;
     private String problemDescription;
     private LocalDateTime startTime;
     private List<Long> serviceIds;

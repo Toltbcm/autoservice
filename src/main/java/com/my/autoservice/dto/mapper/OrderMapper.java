@@ -25,7 +25,7 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
         orderResponseDto.setStatus(order.getStatus());
         orderResponseDto.setStartTime(order.getStartTime());
         orderResponseDto.setFinishTime(order.getFinishTime());
-        orderResponseDto.setCar_id(order.getCar().getId());
+        orderResponseDto.setCarId(order.getCar().getId());
         orderResponseDto.setServiceIds(order.getServices().stream()
                 .map(Service::getId)
                 .collect(Collectors.toList()));

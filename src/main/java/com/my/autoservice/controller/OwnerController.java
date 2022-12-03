@@ -6,7 +6,6 @@ import com.my.autoservice.dto.request.OwnerRequestDto;
 import com.my.autoservice.dto.response.OwnerResponseDto;
 import com.my.autoservice.model.Owner;
 import com.my.autoservice.service.OwnerService;
-import java.util.ArrayList;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;

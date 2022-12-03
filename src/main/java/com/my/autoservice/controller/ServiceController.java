@@ -6,7 +6,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/service")
 public class ServiceController {
-
-//    @PostMapping("/add")
-//    ServiceResponseDto
 }
