@@ -10,6 +10,7 @@ import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.OwnerService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +39,8 @@ public class OrderController {
         order.setParts(new ArrayList<>());
         order.setStatus(OrderStatus.ACCEPTED);
         order.setStartTime(LocalDateTime.now());
-        order.setFinishTime(LocalDateTime.now());
+        order.setFinishTime(LocalDateTime.of(0, Month.JANUARY,
+                1, 0, 0, 0, 0));
         order.setTotalPrice(BigDecimal.ZERO);
         return responseDtoMapper.mapToDto(orderService.save(order));
     }
