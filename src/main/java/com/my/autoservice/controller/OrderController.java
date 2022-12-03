@@ -41,9 +41,9 @@ public class OrderController {
         return responseDtoMapper.mapToDto(orderService.create(id, order));
     }
 
-    @PostMapping("/add//{orderId}/part//{partId}")
-    public OrderResponseDto addPart(@PathVariable Long orderId, @PathVariable Long partId) {
+    @PostMapping("/add//{id}/part//{partId}")
+    public OrderResponseDto addPart(@PathVariable Long id, @PathVariable Long partId) {
         return responseDtoMapper.mapToDto(
-                orderService.addPart(orderId, partService.getById(partId)));
+                orderService.addPart(id, partService.getById(partId)));
     }
 }
