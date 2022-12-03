@@ -1,36 +1,28 @@
 package com.my.autoservice.service.impl;
 
 import com.my.autoservice.model.Order;
-import com.my.autoservice.model.OrderStatus;
 import com.my.autoservice.repository.OrderRepository;
+import com.my.autoservice.service.CarService;
 import com.my.autoservice.service.OrderService;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import com.my.autoservice.service.OwnerService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final OwnerService ownerService;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, OwnerService ownerService, CarService carService) {
         this.orderRepository = orderRepository;
-    }
-
-    @Override
-    public Order create(Order order) {
-        order.setServices(new ArrayList<>());
-        order.setParts(new ArrayList<>());
-        order.setStatus(OrderStatus.ACCEPTED);
-        order.setStartTime(LocalDateTime.now());
-        order.setFinishTime(LocalDateTime.now());
-        order.setTotalPrice(BigDecimal.ZERO);
-        return orderRepository.save(order);
+        this.ownerService = ownerService;
     }
 
     @Override
     public Order save(Order order) {
-        return orderRepository.save(order);
+        Long owner_id = ownerService.getByCarId(order.getCar().getId()).getId();
+        order = orderRepository.save(order);
+        ownerService.addOrder(owner_id, order);
+        return order;
     }
 
     @Override

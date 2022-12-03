@@ -44,4 +44,9 @@ public class OwnerServiceImpl implements OwnerService {
         return ownerRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Can't find owner by Id: " + id));
     }
+
+    @Override
+    public Owner getByCarId(Long id) {
+        return ownerRepository.findOwnerByCarsId(id);
+    }
 }

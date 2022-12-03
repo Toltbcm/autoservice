@@ -2,7 +2,6 @@ package com.my.autoservice.dto.mapper;
 
 import com.my.autoservice.dto.request.OrderRequestDto;
 import com.my.autoservice.dto.response.OrderResponseDto;
-import com.my.autoservice.model.Car;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.Part;
 import com.my.autoservice.model.Service;
@@ -23,15 +22,15 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
     public OrderResponseDto mapToDto(Order order) {
         OrderResponseDto orderResponseDto = new OrderResponseDto();
         orderResponseDto.setId(order.getId());
-        orderResponseDto.setStatus(order.getStatus().getValue());
+        orderResponseDto.setStatus(order.getStatus());
         orderResponseDto.setStartTime(order.getStartTime());
         orderResponseDto.setFinishTime(order.getFinishTime());
-        orderResponseDto.setCar(order.getCar());
-        orderResponseDto.setPartIds(order.getParts().stream()
-                .map(Part::getId)
-                .collect(Collectors.toList()));
+        orderResponseDto.setCar_id(order.getCar().getId());
         orderResponseDto.setServiceIds(order.getServices().stream()
                 .map(Service::getId)
+                .collect(Collectors.toList()));
+        orderResponseDto.setPartIds(order.getParts().stream()
+                .map(Part::getId)
                 .collect(Collectors.toList()));
         orderResponseDto.setProblemDescription(order.getProblemDescription());
         orderResponseDto.setTotalPrice(order.getTotalPrice());
@@ -41,10 +40,14 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
     @Override
     public Order mapToModel(OrderRequestDto dto) {
         Order order = new Order();
-        Car car = carService.getById(dto.getCarId());
-        System.out.println(car.getManufacturer());
-        order.setCar(car);
+        order.setCar(carService.getById(dto.getCarId()));
         order.setProblemDescription(dto.getProblemDescription());
+//        order.setStartTime(LocalDateTime.now());
+//        order.setFinishTime(LocalDateTime.now());
+//        order.setTotalPrice(BigDecimal.ZERO);
+//        order.setParts(new ArrayList<>());
+//        order.setServices(new ArrayList<>());
+//        order.setStatus(OrderStatus.ACCEPTED);
         return order;
     }
 }

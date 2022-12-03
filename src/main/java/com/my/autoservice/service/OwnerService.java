@@ -12,4 +12,6 @@ public interface OwnerService {
     Owner addOrder(Long id, Order order);
 
     Owner getById(Long id);
+
+    Owner getByCarId(Long id);
 }

@@ -1,6 +1,7 @@
 package com.my.autoservice.dto.response;
 
 import com.my.autoservice.model.Master;
+import com.my.autoservice.model.PaymentStatus;
 import java.math.BigDecimal;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,5 +13,5 @@ public class ServiceResponseDto {
     private Long orderId;
     private Master master;
     private BigDecimal price;
-    private String paymentStatus;
+    private PaymentStatus paymentStatus;
 }
