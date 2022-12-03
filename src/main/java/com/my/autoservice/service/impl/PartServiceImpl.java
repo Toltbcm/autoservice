@@ -17,4 +17,10 @@ public class PartServiceImpl implements PartService {
     public Part save(Part part) {
         return partRepository.save(part);
     }
+
+    @Override
+    public Part getById(Long id) {
+        return partRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Can't find part by ID: " + id));
+    }
 }

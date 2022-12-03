@@ -40,14 +40,7 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
     @Override
     public Order mapToModel(OrderRequestDto dto) {
         Order order = new Order();
-        order.setCar(carService.getById(dto.getCarId()));
         order.setProblemDescription(dto.getProblemDescription());
-//        order.setStartTime(LocalDateTime.now());
-//        order.setFinishTime(LocalDateTime.now());
-//        order.setTotalPrice(BigDecimal.ZERO);
-//        order.setParts(new ArrayList<>());
-//        order.setServices(new ArrayList<>());
-//        order.setStatus(OrderStatus.ACCEPTED);
         return order;
     }
 }

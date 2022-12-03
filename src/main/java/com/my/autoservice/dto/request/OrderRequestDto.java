@@ -6,6 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderRequestDto {
-    private Long carId;
     private String problemDescription;
 }

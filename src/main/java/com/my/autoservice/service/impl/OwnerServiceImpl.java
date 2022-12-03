@@ -5,6 +5,7 @@ import com.my.autoservice.model.Order;
 import com.my.autoservice.model.Owner;
 import com.my.autoservice.repository.OwnerRepository;
 import com.my.autoservice.service.OwnerService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,13 @@ public class OwnerServiceImpl implements OwnerService {
 
     public OwnerServiceImpl(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
+    }
+
+    @Override
+    public Owner create(Owner owner) {
+        owner.setCars(new ArrayList<>());
+        owner.setOrders(new ArrayList<>());
+        return ownerRepository.save(owner);
     }
 
     @Override
@@ -42,7 +50,7 @@ public class OwnerServiceImpl implements OwnerService {
     @Override
     public Owner getById(Long id) {
         return ownerRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Can't find owner by Id: " + id));
+                () -> new RuntimeException("Can't find owner by ID: " + id));
     }
 
     @Override

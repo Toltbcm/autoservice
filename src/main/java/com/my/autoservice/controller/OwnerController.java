@@ -32,9 +32,7 @@ public class OwnerController {
     @PostMapping("/add")
     public OwnerResponseDto create(@RequestBody OwnerRequestDto ownerRequestDto) {
         Owner owner = requestDtoMapper.mapToModel(ownerRequestDto);
-        owner.setCars(new ArrayList<>());
-        owner.setOrders(new ArrayList<>());
-        return responseDtoMapper.mapToDto(ownerService.save(owner));
+        return responseDtoMapper.mapToDto(ownerService.create(owner));
     }
 
     @PutMapping("/update//{id}")

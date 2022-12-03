@@ -5,6 +5,8 @@ import com.my.autoservice.model.Order;
 import com.my.autoservice.model.Owner;
 
 public interface OwnerService {
+    Owner create(Owner owner);
+
     Owner save(Owner owner);
 
     Owner addCar(Long id, Car car);

@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -38,8 +40,10 @@ public class Order {
     private LocalDateTime startTime;
     @OneToMany(mappedBy = "order")
     private List<Service> services;
-    @OneToMany
-    @JoinColumn(name = "order_id")
+    @ManyToMany
+    @JoinTable(name = "orders_parts",
+    joinColumns = @JoinColumn(name = "order_id"),
+    inverseJoinColumns = @JoinColumn(name = "part_id"))
     private List<Part> parts;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;

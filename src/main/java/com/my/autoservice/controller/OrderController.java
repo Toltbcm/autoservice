@@ -6,12 +6,14 @@ import com.my.autoservice.dto.request.OrderRequestDto;
 import com.my.autoservice.dto.response.OrderResponseDto;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.OrderStatus;
+import com.my.autoservice.service.CarService;
 import com.my.autoservice.service.OrderService;
-import com.my.autoservice.service.OwnerService;
+import com.my.autoservice.service.PartService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,29 +23,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
+    private final PartService partService;
+    private final CarService carService;
     private final RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper;
     private final ResponseDtoMapper<OrderResponseDto, Order> responseDtoMapper;
 
     public OrderController(OrderService orderService,
-            OwnerService ownerService, RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper,
+            PartService partService, CarService carService, RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper,
             ResponseDtoMapper<OrderResponseDto, Order> responseDtoMapper) {
         this.orderService = orderService;
+        this.partService = partService;
+        this.carService = carService;
         this.requestDtoMapper = requestDtoMapper;
         this.responseDtoMapper = responseDtoMapper;
     }
 
-    @PostMapping("/add")
-    public OrderResponseDto create(@RequestBody OrderRequestDto orderRequestDto) {
+    @PostMapping("/add//{carId}")
+    public OrderResponseDto create(@PathVariable Long carId,
+            @RequestBody OrderRequestDto orderRequestDto) {
         Order order = requestDtoMapper.mapToModel(orderRequestDto);
-        order.setServices(new ArrayList<>());
-        order.setParts(new ArrayList<>());
-        order.setStatus(OrderStatus.ACCEPTED);
-        order.setStartTime(LocalDateTime.now());
-        order.setFinishTime(LocalDateTime.of(0, Month.JANUARY,
-                1, 0, 0, 0, 0));
-        order.setTotalPrice(BigDecimal.ZERO);
-        return responseDtoMapper.mapToDto(orderService.save(order));
+        return responseDtoMapper.mapToDto(orderService.create(carId, order));
     }
 
-//    @PutMapping
+    @PostMapping("/add//{orderId}/part//{partId}")
+    public OrderResponseDto addPart(@PathVariable Long orderId, @PathVariable Long partId) {
+        return responseDtoMapper.mapToDto(
+                orderService.addPart(orderId, partService.getById(partId)));
+    }
+
+//    @PutMapping("/update//{id}")
+//    public OrderResponseDto update(@PathVariable Long id, @RequestBody OrderRequestDto) {
+//        return null;
+//    }
 }

@@ -21,6 +21,6 @@ public class MasterServiceImpl implements MasterService {
     @Override
     public Master getById(Long id) {
         return masterRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Can't get master by Id: " + id));
+                () -> new RuntimeException("Can't get master by ID: " + id));
     }
 }
