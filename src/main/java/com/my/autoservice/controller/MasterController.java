@@ -6,7 +6,6 @@ import com.my.autoservice.dto.request.MasterRequestDto;
 import com.my.autoservice.dto.response.MasterResponseDto;
 import com.my.autoservice.model.Master;
 import com.my.autoservice.service.MasterService;
-import com.my.autoservice.service.OrderService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,5 +43,4 @@ public class MasterController {
         master.setFavors(masterFromDb.getFavors());
         return responseDtoMapper.mapToDto(masterService.save(master));
     }
-
 }
