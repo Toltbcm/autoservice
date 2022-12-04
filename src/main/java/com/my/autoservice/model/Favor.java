@@ -25,8 +25,7 @@ import lombok.Setter;
 public class Favor {
     @Id
     @GeneratedValue(generator = "favors_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "favors_id_seq",
-            sequenceName = "favors_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "favors_id_seq", sequenceName = "favors_id_seq", allocationSize = 1)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
