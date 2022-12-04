@@ -39,7 +39,7 @@ public class Order {
     @Column(name = "start_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime startTime;
     @OneToMany(mappedBy = "order")
-    private List<Service> services;
+    private List<Favor> favors;
     @ManyToMany
     @JoinTable(name = "orders_parts",
             joinColumns = @JoinColumn(name = "order_id"),

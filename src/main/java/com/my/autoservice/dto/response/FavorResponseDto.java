@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServiceResponseDto {
+public class FavorResponseDto {
     private Long id;
     private Long orderId;
     private Master master;

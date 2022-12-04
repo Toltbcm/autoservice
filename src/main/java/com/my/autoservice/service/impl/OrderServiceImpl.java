@@ -1,5 +1,6 @@
 package com.my.autoservice.service.impl;
 
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.OrderStatus;
 import com.my.autoservice.model.Part;
@@ -30,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(Long carId, Order order) {
         order.setCar(carService.getById(carId));
-        order.setServices(new ArrayList<>());
+        order.setFavors(new ArrayList<>());
         order.setParts(new ArrayList<>());
         order.setStatus(OrderStatus.ACCEPTED);
         order.setStartTime(LocalDateTime.now());
@@ -54,7 +55,10 @@ public class OrderServiceImpl implements OrderService {
                 () -> new RuntimeException("Can't find order by ID: " + id));
     }
 
-    public Order addService(Long id, com.my.autoservice.service.Service service) {
+    @Override
+    public Order addFavor(Long id, Favor favor) {
+        Order order = getById(id);
+        List<Favor> favors = order.getFavors();
         return null;
     }
 

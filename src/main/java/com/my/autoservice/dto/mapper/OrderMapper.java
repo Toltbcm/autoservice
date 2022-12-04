@@ -4,7 +4,7 @@ import com.my.autoservice.dto.request.OrderRequestDto;
 import com.my.autoservice.dto.response.OrderResponseDto;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.Part;
-import com.my.autoservice.model.Service;
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.service.CarService;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -26,8 +26,8 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
         orderResponseDto.setStartTime(order.getStartTime());
         orderResponseDto.setFinishTime(order.getFinishTime());
         orderResponseDto.setCarId(order.getCar().getId());
-        orderResponseDto.setServiceIds(order.getServices().stream()
-                .map(Service::getId)
+        orderResponseDto.setFavorsId(order.getFavors().stream()
+                .map(Favor::getId)
                 .collect(Collectors.toList()));
         orderResponseDto.setPartIds(order.getParts().stream()
                 .map(Part::getId)

@@ -1,5 +1,6 @@
 package com.my.autoservice.service;
 
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.Part;
 
@@ -10,7 +11,7 @@ public interface OrderService {
 
     Order getById(Long id);
 
-    Order addService(Long id, Service service);
+    Order addFavor(Long id, Favor favor);
 
     Order addPart(Long id, Part part);
 }

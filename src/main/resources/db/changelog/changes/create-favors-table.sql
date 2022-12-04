@@ -1,6 +1,6 @@
 --liquibase formatted sql
---changeSet <postgres>:<create-services-table>
-CREATE TABLE IF NOT EXISTS public.services
+--changeSet <postgres>:<create-favors-table>
+CREATE TABLE IF NOT EXISTS public.favors
 (
     id             BIGINT                NOT NULL,
     payment_status CHARACTER VARYING(32) NOT NULL,
@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS public.services
     CONSTRAINT orders_id_fk FOREIGN KEY (order_id) REFERENCES orders
 );
 
---rollback DROP TABLE services;
+--rollback DROP TABLE favors;

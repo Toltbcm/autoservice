@@ -21,12 +21,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "services")
-public class Service {
+@Table(name = "favors")
+public class Favor {
     @Id
-    @GeneratedValue(generator = "services_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "services_id_seq",
-            sequenceName = "services_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "favors_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "favors_id_seq",
+            sequenceName = "favors_id_seq", allocationSize = 1)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")

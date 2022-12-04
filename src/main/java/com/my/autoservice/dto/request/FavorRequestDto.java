@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ServiceRequestDto {
+public class FavorRequestDto {
     private Long id;
     private Long orderId;
     private Master master;
