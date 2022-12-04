@@ -9,11 +9,9 @@ public interface OwnerService {
 
     Owner save(Owner owner);
 
-    Owner addCar(Long id, Car car);
+    Owner addCar(Car car);
 
-    Owner addOrder(Long id, Order order);
+    Owner addOrder(Order order);
 
     Owner getById(Long id);
-
-    Owner getByCarId(Long id);
 }

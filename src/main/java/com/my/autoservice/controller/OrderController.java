@@ -5,11 +5,13 @@ import com.my.autoservice.dto.mapper.ResponseDtoMapper;
 import com.my.autoservice.dto.request.OrderRequestDto;
 import com.my.autoservice.dto.response.OrderResponseDto;
 import com.my.autoservice.model.Order;
+import com.my.autoservice.model.OrderStatus;
 import com.my.autoservice.service.CarService;
 import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.PartService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,16 +36,24 @@ public class OrderController {
         this.responseDtoMapper = responseDtoMapper;
     }
 
-    @PostMapping("/add/car//{id}")
-    public OrderResponseDto create(@PathVariable Long id,
+    @PostMapping("/add")
+    public OrderResponseDto create(
             @RequestBody OrderRequestDto orderRequestDto) {
         Order order = requestDtoMapper.mapToModel(orderRequestDto);
-        return responseDtoMapper.mapToDto(orderService.create(id, order));
+        return responseDtoMapper.mapToDto(orderService.create(order));
     }
 
-    @PostMapping("/add//{id}/part//{partId}")
-    public OrderResponseDto addPart(@PathVariable Long id, @PathVariable Long partId) {
+    @PostMapping("/add//{orderId}/part//{partId}")
+    public OrderResponseDto addPart(@PathVariable Long orderId, @PathVariable Long partId) {
         return responseDtoMapper.mapToDto(
-                orderService.addPart(id, partService.getById(partId)));
+                orderService.addPart(orderId, partService.getById(partId)));
+    }
+
+    @PutMapping("/{orderId}/status//{orderStatus}")
+    public OrderResponseDto changeStatus(@PathVariable Long orderId,
+            @PathVariable String orderStatus) {
+        Order order = orderService.getById(orderId);
+        order.setStatus(OrderStatus.valueOf(orderStatus.toUpperCase()));
+        return responseDtoMapper.mapToDto(orderService.save(order));
     }
 }

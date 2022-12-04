@@ -24,8 +24,6 @@ databaseChangeLog:
   - include:
       file: /db/changelog/changes/create-favors-table.sql
   - include:
-      file: /db/changelog/changes/create-masters-orders-table.sql
-  - include:
       file: /db/changelog/changes/create-owners-orders-table.sql
   - include:
       file: /db/changelog/changes/create-orders-parts-table.sql

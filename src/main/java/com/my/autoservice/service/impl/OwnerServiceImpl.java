@@ -30,8 +30,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner addCar(Long id, Car car) {
-        Owner owner = getById(id);
+    public Owner addCar(Car car) {
+        Owner owner = car.getOwner();
         List<Car> cars = owner.getCars();
         cars.add(car);
         owner.setCars(cars);
@@ -39,8 +39,8 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-    public Owner addOrder(Long id, Order order) {
-        Owner owner = getById(id);
+    public Owner addOrder(Order order) {
+        Owner owner = order.getCar().getOwner();
         List<Order> orders = owner.getOrders();
         orders.add(order);
         owner.setOrders(orders);
@@ -51,10 +51,5 @@ public class OwnerServiceImpl implements OwnerService {
     public Owner getById(Long id) {
         return ownerRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Can't find owner by ID: " + id));
-    }
-
-    @Override
-    public Owner getByCarId(Long id) {
-        return ownerRepository.findOwnerByCarsId(id);
     }
 }

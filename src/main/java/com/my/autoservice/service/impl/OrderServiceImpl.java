@@ -19,18 +19,15 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OwnerService ownerService;
-    private final CarService carService;
 
     public OrderServiceImpl(OrderRepository orderRepository,
             OwnerService ownerService, CarService carService) {
         this.orderRepository = orderRepository;
         this.ownerService = ownerService;
-        this.carService = carService;
     }
 
     @Override
-    public Order create(Long carId, Order order) {
-        order.setCar(carService.getById(carId));
+    public Order create(Order order) {
         order.setFavors(new ArrayList<>());
         order.setParts(new ArrayList<>());
         order.setStatus(OrderStatus.ACCEPTED);
@@ -39,8 +36,7 @@ public class OrderServiceImpl implements OrderService {
                 1, 0, 0, 0, 0));
         order.setTotalPrice(BigDecimal.ZERO);
         order = orderRepository.save(order);
-        Long ownerId = ownerService.getByCarId(carId).getId();
-        ownerService.addOrder(ownerId, order);
+        ownerService.addOrder(order);
         return order;
     }
 
@@ -56,10 +52,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order addFavor(Long id, Favor favor) {
-        Order order = getById(id);
+    public Order addFavor(Favor favor) {
+        Order order = favor.getOrder();
         List<Favor> favors = order.getFavors();
-        return null;
+        favors.add(favor);
+        order.setFavors(favors);
+        return save(order);
     }
 
     @Override

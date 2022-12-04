@@ -5,8 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import java.util.List;
@@ -27,9 +26,7 @@ public class Master {
     private String firstName;
     private String lastName;
     private String patronymic;
-    @ManyToMany
-    @JoinTable(name = "masters_orders",
-            joinColumns = @JoinColumn(name = "master_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id"))
-    private List<Order> orders;
+    @OneToMany
+    @JoinColumn(name = "master_id")
+    private List<Favor> favors;
 }

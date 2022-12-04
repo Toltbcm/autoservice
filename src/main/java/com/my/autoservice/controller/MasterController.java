@@ -5,7 +5,6 @@ import com.my.autoservice.dto.mapper.ResponseDtoMapper;
 import com.my.autoservice.dto.request.MasterRequestDto;
 import com.my.autoservice.dto.response.MasterResponseDto;
 import com.my.autoservice.model.Master;
-import com.my.autoservice.model.Order;
 import com.my.autoservice.service.MasterService;
 import com.my.autoservice.service.OrderService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,15 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/master")
 public class MasterController {
     private final MasterService masterService;
-    private final OrderService orderService;
     private final RequestDtoMapper<MasterRequestDto, Master> requestDtoMapper;
     private final ResponseDtoMapper<MasterResponseDto, Master> responseDtoMapper;
 
     public MasterController(MasterService masterService,
-            OrderService orderService, RequestDtoMapper<MasterRequestDto, Master> requestDtoMapper,
+            RequestDtoMapper<MasterRequestDto, Master> requestDtoMapper,
             ResponseDtoMapper<MasterResponseDto, Master> responseDtoMapper) {
         this.masterService = masterService;
-        this.orderService = orderService;
         this.requestDtoMapper = requestDtoMapper;
         this.responseDtoMapper = responseDtoMapper;
     }
@@ -44,13 +41,8 @@ public class MasterController {
         Master masterFromDb = masterService.getById(id);
         Master master = requestDtoMapper.mapToModel(masterRequestDto);
         master.setId(id);
-        master.setOrders(masterFromDb.getOrders());
+        master.setFavors(masterFromDb.getFavors());
         return responseDtoMapper.mapToDto(masterService.save(master));
     }
 
-    @PostMapping("/add//{id}/order//{orderId}")
-    public MasterResponseDto addOrder(@PathVariable Long id, @PathVariable Long orderId) {
-        Order order = orderService.getById(orderId);
-        return responseDtoMapper.mapToDto(masterService.addOrder(id, order));
-    }
 }

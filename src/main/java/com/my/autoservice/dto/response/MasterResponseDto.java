@@ -11,5 +11,5 @@ public class MasterResponseDto {
     private String firstName;
     private String lastName;
     private String patronymic;
-    private List<Long> orderIds;
+    private List<Long> favorIds;
 }

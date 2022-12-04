@@ -20,26 +20,27 @@ public class OrderMapper implements ResponseDtoMapper<OrderResponseDto, Order>,
 
     @Override
     public OrderResponseDto mapToDto(Order order) {
-        OrderResponseDto orderResponseDto = new OrderResponseDto();
-        orderResponseDto.setId(order.getId());
-        orderResponseDto.setStatus(order.getStatus());
-        orderResponseDto.setStartTime(order.getStartTime());
-        orderResponseDto.setFinishTime(order.getFinishTime());
-        orderResponseDto.setCarId(order.getCar().getId());
-        orderResponseDto.setFavorsId(order.getFavors().stream()
+        OrderResponseDto dto = new OrderResponseDto();
+        dto.setId(order.getId());
+        dto.setStatus(order.getStatus());
+        dto.setStartTime(order.getStartTime());
+        dto.setFinishTime(order.getFinishTime());
+        dto.setCarId(order.getCar().getId());
+        dto.setFavorsId(order.getFavors().stream()
                 .map(Favor::getId)
                 .collect(Collectors.toList()));
-        orderResponseDto.setPartIds(order.getParts().stream()
+        dto.setPartIds(order.getParts().stream()
                 .map(Part::getId)
                 .collect(Collectors.toList()));
-        orderResponseDto.setProblemDescription(order.getProblemDescription());
-        orderResponseDto.setTotalPrice(order.getTotalPrice());
-        return orderResponseDto;
+        dto.setProblemDescription(order.getProblemDescription());
+        dto.setTotalPrice(order.getTotalPrice());
+        return dto;
     }
 
     @Override
     public Order mapToModel(OrderRequestDto dto) {
         Order order = new Order();
+        order.setCar(carService.getById(dto.getCarId()));
         order.setProblemDescription(dto.getProblemDescription());
         return order;
     }

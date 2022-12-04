@@ -1,7 +1,7 @@
 package com.my.autoservice.service;
 
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Master;
-import com.my.autoservice.model.Order;
 
 public interface MasterService {
     Master create(Master master);
@@ -10,5 +10,5 @@ public interface MasterService {
 
     Master getById(Long id);
 
-    Master addOrder(Long id, Order order);
+    Master addFavor(Favor favor);
 }

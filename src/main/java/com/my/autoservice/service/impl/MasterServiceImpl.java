@@ -1,7 +1,7 @@
 package com.my.autoservice.service.impl;
 
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Master;
-import com.my.autoservice.model.Order;
 import com.my.autoservice.repository.MasterRepository;
 import com.my.autoservice.service.MasterService;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class MasterServiceImpl implements MasterService {
 
     @Override
     public Master create(Master master) {
-        master.setOrders(new ArrayList<>());
+        master.setFavors(new ArrayList<>());
         return masterRepository.save(master);
     }
 
@@ -34,11 +34,11 @@ public class MasterServiceImpl implements MasterService {
     }
 
     @Override
-    public Master addOrder(Long id, Order order) {
-        Master master = getById(id);
-        List<Order> orders = master.getOrders();
-        orders.add(order);
-        master.setOrders(orders);
+    public Master addFavor(Favor favor) {
+        Master master = favor.getMaster();
+        List<Favor> favors = master.getFavors();
+        favors.add(favor);
+        master.setFavors(favors);
         return save(master);
     }
 }
