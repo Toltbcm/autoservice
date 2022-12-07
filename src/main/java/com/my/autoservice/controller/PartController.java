@@ -34,11 +34,11 @@ public class PartController {
         return responseDtoMapper.mapToDto(partService.save(part));
     }
 
-    @PutMapping("/update//{id}")
-    public PartResponseDto update(@PathVariable Long id,
+    @PutMapping("/update//{partId}")
+    public PartResponseDto update(@PathVariable Long partId,
             @RequestBody PartRequestDto partRequestDto) {
         Part part = requestDtoMapper.mapToModel(partRequestDto);
-        part.setId(id);
+        part.setId(partId);
         return responseDtoMapper.mapToDto(partService.save(part));
     }
 }

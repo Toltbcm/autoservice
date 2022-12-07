@@ -17,4 +17,10 @@ public class FavorServiceImpl implements FavorService {
     public Favor save(Favor favor) {
         return favorRepository.save(favor);
     }
+
+    @Override
+    public Favor getById(Long id) {
+        return favorRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Can't find favor by ID: " + id));
+    }
 }

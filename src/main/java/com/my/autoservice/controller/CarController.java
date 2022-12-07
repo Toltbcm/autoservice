@@ -34,16 +34,14 @@ public class CarController {
     @PostMapping("/add")
     public CarResponseDto create(@RequestBody CarRequestDto carRequestDto) {
         Car car = requestDtoMapper.mapToModel(carRequestDto);
-        car = carService.save(car);
-        ownerService.addCar(car);
-        return responseDtoMapper.mapToDto(car);
+        return responseDtoMapper.mapToDto(carService.save(car));
     }
 
-    @PutMapping("/update//{id}")
-    public CarResponseDto update(@PathVariable Long id,
+    @PutMapping("/update//{carId}")
+    public CarResponseDto update(@PathVariable Long carId,
             @RequestBody CarRequestDto carRequestDto) {
         Car car = requestDtoMapper.mapToModel(carRequestDto);
-        car.setId(id);
+        car.setId(carId);
         return responseDtoMapper.mapToDto(carService.save(car));
     }
 }
