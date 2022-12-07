@@ -43,6 +43,14 @@ public class OrderController {
         return responseDtoMapper.mapToDto(orderService.create(order));
     }
 
+    @PutMapping("/update//{orderId}")
+    public OrderResponseDto create(@PathVariable Long orderId,
+            @RequestBody OrderRequestDto orderRequestDto) {
+        Order order = requestDtoMapper.mapToModel(orderRequestDto);
+        order.setId(orderId);
+        return responseDtoMapper.mapToDto(orderService.save(order));
+    }
+
     @PostMapping("/add//{orderId}/part//{partId}")
     public OrderResponseDto addPart(@PathVariable Long orderId, @PathVariable Long partId) {
         return responseDtoMapper.mapToDto(

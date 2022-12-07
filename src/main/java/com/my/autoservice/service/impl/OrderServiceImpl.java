@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    private static final BigDecimal PART_DISCOUNT = BigDecimal.valueOf(0.01);
+    private static final BigDecimal FAVOR_DISCOUNT = BigDecimal.valueOf(0.02);
     private final OrderRepository orderRepository;
     private final OwnerService ownerService;
 
@@ -57,6 +59,10 @@ public class OrderServiceImpl implements OrderService {
         List<Favor> favors = order.getFavors();
         favors.add(favor);
         order.setFavors(favors);
+        BigDecimal discount = FAVOR_DISCOUNT.multiply(
+                BigDecimal.valueOf(order.getCar().getOwner().getOrders().size()));
+        order.setTotalPrice(order.getTotalPrice().add(
+                favor.getPrice().subtract(favor.getPrice().multiply(discount))));
         return save(order);
     }
 
@@ -65,7 +71,11 @@ public class OrderServiceImpl implements OrderService {
         Order order = getById(id);
         List<Part> parts = order.getParts();
         parts.add(part);
+        BigDecimal discount = PART_DISCOUNT.multiply(
+                BigDecimal.valueOf(order.getCar().getOwner().getOrders().size()));
         order.setParts(parts);
+        order.setTotalPrice(order.getTotalPrice().add(
+                part.getPrice().subtract(part.getPrice().multiply(discount))));
         return save(order);
     }
 }

@@ -44,10 +44,7 @@ public class FavorController {
     @PostMapping("/add")
     FavorResponseDto create(@RequestBody FavorRequestDto favorRequestDto) {
         Favor favor = requestDtoMapper.mapToModel(favorRequestDto);
-        favor = favorService.save(favor);
-        masterService.addFavor(favor);
-        orderService.addFavor(favor);
-        return responseDtoMapper.mapToDto(favor);
+        return responseDtoMapper.mapToDto(favorService.create(favor));
     }
 
     @PutMapping("/update//{favorId}")

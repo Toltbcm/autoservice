@@ -8,6 +8,7 @@ import com.my.autoservice.dto.response.FavorResponseDto;
 import com.my.autoservice.dto.response.MasterResponseDto;
 import com.my.autoservice.model.Master;
 import com.my.autoservice.service.MasterService;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,5 +59,8 @@ public class MasterController {
                 .collect(Collectors.toList());
     }
 
-
+    @GetMapping("/salary//{masterId}")
+    public BigDecimal getSalary(@PathVariable Long masterId) {
+        return masterService.getSalary(masterId);
+    }
 }

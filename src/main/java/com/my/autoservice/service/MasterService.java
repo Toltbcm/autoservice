@@ -2,6 +2,7 @@ package com.my.autoservice.service;
 
 import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Master;
+import java.math.BigDecimal;
 
 public interface MasterService {
     Master create(Master master);
@@ -11,4 +12,6 @@ public interface MasterService {
     Master getById(Long id);
 
     Master addFavor(Favor favor);
+
+    BigDecimal getSalary(Long id);
 }
