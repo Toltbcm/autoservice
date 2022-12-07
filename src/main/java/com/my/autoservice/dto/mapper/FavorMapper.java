@@ -3,7 +3,6 @@ package com.my.autoservice.dto.mapper;
 import com.my.autoservice.dto.request.FavorRequestDto;
 import com.my.autoservice.dto.response.FavorResponseDto;
 import com.my.autoservice.model.Favor;
-import com.my.autoservice.model.PaymentStatus;
 import com.my.autoservice.service.MasterService;
 import com.my.autoservice.service.OrderService;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,6 @@ public class FavorMapper implements RequestDtoMapper<FavorRequestDto, Favor>,
         favor.setOrder(orderService.getById(dto.getOrderId()));
         favor.setMaster(masterService.getById(dto.getMasterId()));
         favor.setPrice(dto.getPrice());
-        favor.setPaymentStatus(PaymentStatus.valueOf(dto.getPaymentStatus().toUpperCase()));
         return favor;
     }
 
@@ -35,6 +33,7 @@ public class FavorMapper implements RequestDtoMapper<FavorRequestDto, Favor>,
         dto.setId(favor.getId());
         dto.setOrderId(favor.getOrder().getId());
         dto.setMasterId(favor.getMaster().getId());
+        dto.setPrice(favor.getPrice());
         dto.setPaymentStatus(favor.getPaymentStatus());
         return dto;
     }

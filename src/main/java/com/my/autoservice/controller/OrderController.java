@@ -9,6 +9,9 @@ import com.my.autoservice.model.OrderStatus;
 import com.my.autoservice.service.CarService;
 import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.PartService;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -61,7 +64,16 @@ public class OrderController {
     public OrderResponseDto changeStatus(@PathVariable Long orderId,
             @PathVariable String orderStatus) {
         Order order = orderService.getById(orderId);
-        order.setStatus(OrderStatus.valueOf(orderStatus.toUpperCase()));
+        OrderStatus status = OrderStatus.valueOf(orderStatus.toUpperCase());
+        if (status == OrderStatus.SUCCESSFUL || status == OrderStatus.NOT_SUCCESSFUL) {
+            order.setFinishTime(LocalDateTime.now());
+        }
+        order.setStatus(status);
         return responseDtoMapper.mapToDto(orderService.save(order));
+    }
+
+    @GetMapping("/price//{orderId}")
+    public BigDecimal getPrice(@PathVariable Long orderId) {
+        return orderService.getById(orderId).getTotalPrice();
     }
 }

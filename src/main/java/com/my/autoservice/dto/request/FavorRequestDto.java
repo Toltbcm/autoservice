@@ -10,5 +10,4 @@ public class FavorRequestDto {
     private Long orderId;
     private Long masterId;
     private BigDecimal price;
-    private String paymentStatus;
 }

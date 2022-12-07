@@ -1,6 +1,7 @@
 package com.my.autoservice.service.impl;
 
 import com.my.autoservice.model.Favor;
+import com.my.autoservice.model.PaymentStatus;
 import com.my.autoservice.repository.FavorRepository;
 import com.my.autoservice.service.FavorService;
 import com.my.autoservice.service.MasterService;
@@ -23,9 +24,11 @@ public class FavorServiceImpl implements FavorService {
 
     @Override
     public Favor create(Favor favor) {
+        favor.setPaymentStatus(PaymentStatus.NOT_PAYED);
+        favor = save(favor);
         masterService.addFavor(favor);
         orderService.addFavor(favor);
-        return save(favor);
+        return favor;
     }
 
     @Override
