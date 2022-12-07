@@ -32,6 +32,7 @@ public class Favor {
     private Order order;
     @OneToOne(fetch = FetchType.LAZY)
     private Master master;
+    private String description;
     private BigDecimal price;
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;

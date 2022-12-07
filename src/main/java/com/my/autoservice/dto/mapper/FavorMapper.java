@@ -24,6 +24,7 @@ public class FavorMapper implements RequestDtoMapper<FavorRequestDto, Favor>,
         favor.setOrder(orderService.getById(dto.getOrderId()));
         favor.setMaster(masterService.getById(dto.getMasterId()));
         favor.setPrice(dto.getPrice());
+        favor.setDescription(dto.getDescription());
         return favor;
     }
 
@@ -34,6 +35,7 @@ public class FavorMapper implements RequestDtoMapper<FavorRequestDto, Favor>,
         dto.setOrderId(favor.getOrder().getId());
         dto.setMasterId(favor.getMaster().getId());
         dto.setPrice(favor.getPrice());
+        dto.setDescription(favor.getDescription());
         dto.setPaymentStatus(favor.getPaymentStatus());
         return dto;
     }

@@ -4,6 +4,7 @@ import com.my.autoservice.dto.mapper.RequestDtoMapper;
 import com.my.autoservice.dto.mapper.ResponseDtoMapper;
 import com.my.autoservice.dto.request.OrderRequestDto;
 import com.my.autoservice.dto.response.OrderResponseDto;
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.OrderStatus;
 import com.my.autoservice.service.CarService;
@@ -11,6 +12,7 @@ import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.PartService;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,6 +76,15 @@ public class OrderController {
 
     @GetMapping("/price//{orderId}")
     public BigDecimal getPrice(@PathVariable Long orderId) {
-        return orderService.getById(orderId).getTotalPrice();
+        Order order = orderService.getById(orderId);
+        List<Favor> favors = order.getFavors();
+        BigDecimal diagnosticPrice = favors.stream()
+                .filter(f -> f.getDescription().equals("Diagnostic"))
+                .map(Favor::getPrice)
+                .findAny().orElse(BigDecimal.ZERO);
+        BigDecimal price = order.getTotalPrice();
+        return !diagnosticPrice.equals(BigDecimal.ZERO) && favors.size() > 1
+               ? price.subtract(diagnosticPrice)
+               : price;
     }
 }

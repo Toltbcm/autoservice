@@ -11,6 +11,7 @@ public class FavorResponseDto {
     private Long id;
     private Long orderId;
     private Long masterId;
+    private String description;
     private BigDecimal price;
     private PaymentStatus paymentStatus;
 }

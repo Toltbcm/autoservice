@@ -9,5 +9,6 @@ import lombok.Setter;
 public class FavorRequestDto {
     private Long orderId;
     private Long masterId;
+    private String description;
     private BigDecimal price;
 }
