@@ -6,7 +6,10 @@ import com.my.autoservice.dto.mapper.ResponseDtoMapper;
 import com.my.autoservice.dto.request.MasterRequestDto;
 import com.my.autoservice.dto.response.FavorResponseDto;
 import com.my.autoservice.dto.response.MasterResponseDto;
+import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Master;
+import com.my.autoservice.model.PaymentStatus;
+import com.my.autoservice.service.FavorService;
 import com.my.autoservice.service.MasterService;
 import java.math.BigDecimal;
 import java.util.List;
@@ -23,14 +26,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/master")
 public class MasterController {
     private final MasterService masterService;
+    private final FavorService favorService;
     private final FavorMapper favorMapper;
     private final RequestDtoMapper<MasterRequestDto, Master> requestDtoMapper;
     private final ResponseDtoMapper<MasterResponseDto, Master> responseDtoMapper;
 
     public MasterController(MasterService masterService,
-            FavorMapper favorMapper, RequestDtoMapper<MasterRequestDto, Master> requestDtoMapper,
+            FavorService favorService, FavorMapper favorMapper,
+            RequestDtoMapper<MasterRequestDto, Master> requestDtoMapper,
             ResponseDtoMapper<MasterResponseDto, Master> responseDtoMapper) {
         this.masterService = masterService;
+        this.favorService = favorService;
         this.favorMapper = favorMapper;
         this.requestDtoMapper = requestDtoMapper;
         this.responseDtoMapper = responseDtoMapper;
@@ -61,6 +67,9 @@ public class MasterController {
 
     @GetMapping("/salary//{masterId}")
     public BigDecimal getSalary(@PathVariable Long masterId) {
+        List<Favor> favors = masterService.getById(masterId).getFavors();
+        favors.forEach(f -> f.setPaymentStatus(PaymentStatus.PAYED));
+        favors.forEach(favorService::save);
         return masterService.getSalary(masterId);
     }
 }

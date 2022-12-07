@@ -7,7 +7,6 @@ import com.my.autoservice.dto.response.OrderResponseDto;
 import com.my.autoservice.model.Favor;
 import com.my.autoservice.model.Order;
 import com.my.autoservice.model.OrderStatus;
-import com.my.autoservice.service.CarService;
 import com.my.autoservice.service.OrderService;
 import com.my.autoservice.service.PartService;
 import java.math.BigDecimal;
@@ -26,17 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
     private final OrderService orderService;
     private final PartService partService;
-    private final CarService carService;
     private final RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper;
     private final ResponseDtoMapper<OrderResponseDto, Order> responseDtoMapper;
 
     public OrderController(OrderService orderService,
-            PartService partService, CarService carService,
+            PartService partService,
             RequestDtoMapper<OrderRequestDto, Order> requestDtoMapper,
             ResponseDtoMapper<OrderResponseDto, Order> responseDtoMapper) {
         this.orderService = orderService;
         this.partService = partService;
-        this.carService = carService;
         this.requestDtoMapper = requestDtoMapper;
         this.responseDtoMapper = responseDtoMapper;
     }

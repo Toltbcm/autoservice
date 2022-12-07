@@ -57,12 +57,12 @@ public class OrderServiceImpl implements OrderService {
     public Order addFavor(Favor favor) {
         Order order = favor.getOrder();
         List<Favor> favors = order.getFavors();
+        BigDecimal discount = favor.getPrice().multiply(FAVOR_DISCOUNT.multiply(
+                BigDecimal.valueOf(order.getCar().getOwner().getOrders().size())));
+        favor.setPrice(favor.getPrice().subtract(discount));
         favors.add(favor);
         order.setFavors(favors);
-        BigDecimal discount = FAVOR_DISCOUNT.multiply(
-                BigDecimal.valueOf(order.getCar().getOwner().getOrders().size()));
-        order.setTotalPrice(order.getTotalPrice().add(
-                favor.getPrice().subtract(favor.getPrice().multiply(discount))));
+        order.setTotalPrice(order.getTotalPrice().add(favor.getPrice()));
         return save(order);
     }
 
